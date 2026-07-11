@@ -11,6 +11,16 @@ It shows the two boundaries most repositories need:
 No provider token or other secret is required. Both workflows use Clarissimi's deterministic fake
 provider and the maintained `0disoft/clarissimi@v0` Action channel.
 
+## Live Evidence
+
+- [Read-only dry-run workflow](https://github.com/0disoft/clarissimi-example/actions/runs/29135583283)
+- [First synthetic recognition proposal](https://github.com/0disoft/clarissimi-example/pull/1)
+- [Generated contributor summary](CONTRIBUTORS.md)
+
+The first proposal was reviewed and merged through the normal pull-request boundary. Its canonical
+record is `.clarissimi/contributions.jsonl`; contributor JSON, static JSON, and `CONTRIBUTORS.md`
+are deterministic derived outputs.
+
 ## Read-Only Dry Run
 
 The default workflow grants only `contents: read` and validates the Action outputs plus the
