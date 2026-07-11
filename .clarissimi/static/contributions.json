@@ -1,0 +1,103 @@
+{
+  "contributions": [
+    {
+      "affectedArea": "Add synthetic parser regression coverage",
+      "contributionType": "test",
+      "contributor": {
+        "id": "900001",
+        "login": "synthetic-contributor",
+        "platform": "github",
+        "profileUrl": "https://github.com/synthetic-contributor"
+      },
+      "evidenceRefs": [
+        {
+          "id": "PR-1001",
+          "kind": "pull_request",
+          "title": "Add synthetic parser regression coverage",
+          "url": "https://github.com/0disoft/clarissimi-example/pull/1001"
+        },
+        {
+          "id": "label:tests",
+          "kind": "label",
+          "title": "tests"
+        },
+        {
+          "id": "tests/parser.spec.ts",
+          "kind": "test",
+          "title": "tests/parser.spec.ts"
+        },
+        {
+          "id": "00000000000000000000000000000000000003e9",
+          "kind": "commit",
+          "title": "Merge commit 000000000000"
+        }
+      ],
+      "publicRecognitionText": "Added regression coverage for Add synthetic parser regression coverage.",
+      "source": {
+        "event": "merged_pull_request",
+        "mergedAt": "2026-07-11T00:00:00.000Z",
+        "pullRequestNumber": 1001,
+        "repository": "0disoft/clarissimi-example"
+      },
+      "suggestedBadge": "Regression Shield"
+    }
+  ],
+  "contributors": [
+    {
+      "affectedAreas": [
+        "Add synthetic parser regression coverage"
+      ],
+      "badges": [
+        "Regression Shield"
+      ],
+      "contributionCount": 1,
+      "contributionTypes": [
+        "test"
+      ],
+      "contributor": {
+        "id": "900001",
+        "login": "synthetic-contributor",
+        "platform": "github",
+        "profileUrl": "https://github.com/synthetic-contributor"
+      },
+      "recognitions": [
+        {
+          "affectedArea": "Add synthetic parser regression coverage",
+          "contributionType": "test",
+          "evidenceRefs": [
+            {
+              "id": "PR-1001",
+              "kind": "pull_request",
+              "title": "Add synthetic parser regression coverage",
+              "url": "https://github.com/0disoft/clarissimi-example/pull/1001"
+            },
+            {
+              "id": "label:tests",
+              "kind": "label",
+              "title": "tests"
+            },
+            {
+              "id": "tests/parser.spec.ts",
+              "kind": "test",
+              "title": "tests/parser.spec.ts"
+            },
+            {
+              "id": "00000000000000000000000000000000000003e9",
+              "kind": "commit",
+              "title": "Merge commit 000000000000"
+            }
+          ],
+          "publicRecognitionText": "Added regression coverage for Add synthetic parser regression coverage.",
+          "source": {
+            "event": "merged_pull_request",
+            "mergedAt": "2026-07-11T00:00:00.000Z",
+            "pullRequestNumber": 1001,
+            "repository": "0disoft/clarissimi-example"
+          },
+          "suggestedBadge": "Regression Shield"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": "clarissimi.static-contributions/v1"
+}
