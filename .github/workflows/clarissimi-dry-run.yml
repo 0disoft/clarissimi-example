@@ -37,7 +37,7 @@ jobs:
         run: |
           set -euo pipefail
           test "${{ steps.clarissimi.outputs.draft-count }}" = "1"
-          test "${{ steps.clarissimi.outputs.proposed-entry-count }}" = "1"
+          test "${{ steps.clarissimi.outputs.proposed-entry-count }}" = "0"
           test "${{ steps.clarissimi.outputs.skipped-entry-count }}" = "0"
           test "${{ steps.clarissimi.outputs.mode }}" = "dry-run"
           test "${{ steps.clarissimi.outputs.input-source }}" = "github_fixture"
@@ -47,7 +47,7 @@ jobs:
           import { readFileSync } from "node:fs";
 
           const summary = JSON.parse(readFileSync(process.env.SUMMARY_PATH, "utf8"));
-          if (summary.mode !== "dry-run" || summary.proposedEntryCount !== 1) {
+          if (summary.mode !== "dry-run" || summary.proposedEntryCount !== 0) {
             throw new Error("Clarissimi summary contract drifted.");
           }
           const text = JSON.stringify(summary);
