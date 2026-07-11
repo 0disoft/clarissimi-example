@@ -1,0 +1,59 @@
+name: Clarissimi dry-run example
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: clarissimi-dry-run-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dry-run:
+    name: Read-only recognition preview
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.0
+
+      - name: Run Clarissimi dry-run
+        id: clarissimi
+        uses: 0disoft/clarissimi@v0
+        with:
+          mode: dry-run
+          github-fixture: fixtures/github-merged-pr-approved.json
+          summary-path: .clarissimi/example-summary.json
+          markdown-summary: table
+
+      - name: Verify sanitized outputs
+        shell: bash
+        env:
+          SUMMARY_PATH: ${{ steps.clarissimi.outputs.summary-json-path }}
+        run: |
+          set -euo pipefail
+          test "${{ steps.clarissimi.outputs.draft-count }}" = "1"
+          test "${{ steps.clarissimi.outputs.proposed-entry-count }}" = "1"
+          test "${{ steps.clarissimi.outputs.skipped-entry-count }}" = "0"
+          test "${{ steps.clarissimi.outputs.mode }}" = "dry-run"
+          test "${{ steps.clarissimi.outputs.input-source }}" = "github_fixture"
+          test "${{ steps.clarissimi.outputs.approval-status }}" = "approved"
+          test -n "$SUMMARY_PATH"
+          SUMMARY_PATH="$SUMMARY_PATH" node --input-type=module <<'NODE'
+          import { readFileSync } from "node:fs";
+
+          const summary = JSON.parse(readFileSync(process.env.SUMMARY_PATH, "utf8"));
+          if (summary.mode !== "dry-run" || summary.proposedEntryCount !== 1) {
+            throw new Error("Clarissimi summary contract drifted.");
+          }
+          const text = JSON.stringify(summary);
+          for (const unsafe of ["SYNTHETIC_BODY_SENTINEL", "SYNTHETIC_PATCH_SENTINEL"]) {
+            if (text.includes(unsafe)) {
+              throw new Error(`Clarissimi summary leaked raw fixture evidence: ${unsafe}`);
+            }
+          }
+          NODE

@@ -1,0 +1,33 @@
+{
+  "maintainerApprovalStatus": "approved",
+  "repository": {
+    "fullName": "0disoft/clarissimi-example"
+  },
+  "pullRequest": {
+    "number": 1001,
+    "title": "Add synthetic parser regression coverage",
+    "body": "SYNTHETIC_BODY_SENTINEL",
+    "htmlUrl": "https://github.com/0disoft/clarissimi-example/pull/1001",
+    "mergedAt": "2026-07-11T00:00:00.000Z",
+    "user": {
+      "id": 900001,
+      "login": "synthetic-contributor",
+      "htmlUrl": "https://github.com/synthetic-contributor"
+    },
+    "labels": [
+      {
+        "name": "tests"
+      }
+    ],
+    "changedFiles": [
+      {
+        "filename": "tests/parser.spec.ts",
+        "status": "added",
+        "additions": 24,
+        "deletions": 0,
+        "patchExcerpt": "SYNTHETIC_PATCH_SENTINEL"
+      }
+    ],
+    "mergeCommitSha": "9000019000019000019000019000019000019000"
+  }
+}

@@ -1,0 +1,78 @@
+name: Clarissimi recognition proposal
+run-name: Clarissimi recognition proposal · synthetic source ${{ inputs.source-id }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      source-id:
+        description: Unique positive synthetic pull request number for this example run.
+        required: true
+        default: "1001"
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: clarissimi-recognition-proposal
+  cancel-in-progress: false
+
+jobs:
+  propose:
+    name: Open synthetic recognition pull request
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Prepare unique synthetic fixture
+        shell: bash
+        env:
+          SOURCE_ID: ${{ inputs.source-id }}
+        run: |
+          set -euo pipefail
+          mkdir -p .tmp/clarissimi
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from "node:fs";
+
+          const sourceId = Number(process.env.SOURCE_ID);
+          if (!Number.isSafeInteger(sourceId) || sourceId <= 0) {
+            throw new Error("source-id must be a positive safe integer.");
+          }
+          const fixture = JSON.parse(readFileSync("fixtures/github-merged-pr-approved.json", "utf8"));
+          fixture.pullRequest.number = sourceId;
+          fixture.pullRequest.htmlUrl = `https://github.com/${process.env.GITHUB_REPOSITORY}/pull/${sourceId}`;
+          fixture.pullRequest.mergeCommitSha = sourceId.toString(16).padStart(40, "0").slice(-40);
+          writeFileSync(
+            ".tmp/clarissimi/github-merged-pr-approved.json",
+            `${JSON.stringify(fixture, null, 2)}\n`
+          );
+          NODE
+
+      - name: Open recognition proposal
+        id: clarissimi
+        uses: 0disoft/clarissimi@v0
+        with:
+          mode: propose
+          github-fixture: .tmp/clarissimi/github-merged-pr-approved.json
+          base-branch: main
+          markdown-summary: table
+
+      - name: Verify proposal outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${{ steps.clarissimi.outputs.draft-count }}" = "1"
+          test "${{ steps.clarissimi.outputs.proposed-entry-count }}" = "1"
+          test "${{ steps.clarissimi.outputs.skipped-entry-count }}" = "0"
+          test "${{ steps.clarissimi.outputs.mode }}" = "propose"
+          test "${{ steps.clarissimi.outputs.input-source }}" = "github_fixture"
+          test "${{ steps.clarissimi.outputs.approval-status }}" = "approved"
+          test "${{ steps.clarissimi.outputs.staged-file-count }}" = "4"
+          test -n "${{ steps.clarissimi.outputs.proposal-branch }}"
+          test -n "${{ steps.clarissimi.outputs.proposal-commit-sha }}"
+          test -n "${{ steps.clarissimi.outputs.proposal-pull-request-number }}"
+          test -n "${{ steps.clarissimi.outputs.proposal-pull-request-url }}"
