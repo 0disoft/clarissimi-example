@@ -54,7 +54,7 @@ jobs:
 
       - name: Open recognition proposal
         id: clarissimi
-        uses: 0disoft/clarissimi@v0
+        uses: 0disoft/clarissimi@v1.1.0
         with:
           mode: propose
           github-fixture: .tmp/clarissimi/github-merged-pr-approved.json

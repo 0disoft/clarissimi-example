@@ -9,7 +9,7 @@ It shows the two boundaries most repositories need:
 - a manual recognition proposal that opens a pull request instead of mutating `main`.
 
 No provider token or other secret is required. Both workflows use Clarissimi's deterministic fake
-provider and the maintained `0disoft/clarissimi@v0` Action channel.
+provider and the maintained `0disoft/clarissimi@v1.1.0` Action channel.
 
 ## Live Evidence
 
@@ -32,7 +32,7 @@ permissions:
 
 steps:
   - uses: actions/checkout@v7.0.0
-  - uses: 0disoft/clarissimi@v0
+  - uses: 0disoft/clarissimi@v1.1.0
     with:
       mode: dry-run
       github-fixture: fixtures/github-merged-pr-approved.json

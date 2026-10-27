@@ -23,7 +23,7 @@ jobs:
 
       - name: Run Clarissimi dry-run
         id: clarissimi
-        uses: 0disoft/clarissimi@v0
+        uses: 0disoft/clarissimi@v1.1.0
         with:
           mode: dry-run
           github-fixture: fixtures/github-merged-pr-approved.json
